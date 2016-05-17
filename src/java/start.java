@@ -18,10 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class start extends HttpServlet {
 
-    // JDBC driver name and database URL
-     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-     static final String DB_URL = "jdbc:mysql://sylvester-mccoy-v3.ics.uci.edu";
-
+    // JDBC database URL
+     static final String DB_URL = "jdbc:mysql://sylvester-mccoy-v3.ics.uci.edu/inf124grp16";
+     
      //  Database credentials
      static final String USER = "inf124grp16";
      static final String PASS = "n?yUmap3";
@@ -58,60 +57,27 @@ public class start extends HttpServlet {
      *
      */
     
-    protected void connect(HttpServletResponse response) {
-        
-        Connection conn = null;
-        Statement stmt = null;
-        try{     
-            PrintWriter out = response.getWriter();
-            
-            //STEP 2: Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
+    protected void connect(HttpServletResponse response) 
+            throws ServletException, IOException {
+        try (PrintWriter out = response.getWriter()) {
+            out.println("Loading driver...<br/>");
 
-            //STEP 3: Open a connection
-            out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-            //STEP 4: Execute a query
-            out.println("Creating statement...");
-            stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT name FROM inf124grp16.products";
-            ResultSet rs = stmt.executeQuery(sql);
-            
-            //STEP 5: Extract data from result set
-            while(rs.next()){
-               //Retrieve by column name
-               String name = rs.getString("name");
-
-               //Display values
-               out.println("<p>name: " + name + "</p>");
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                out.println("Driver loaded!<br/>");
+            } catch (ClassNotFoundException e) {
+                out.println("Unable to load driver :(<br/>");
+                throw new IllegalStateException("Cannot find the driver in the classpath!", e);
             }
-            //STEP 6: Clean-up environment
-            rs.close();
-            stmt.close();
-            conn.close();
-            }catch(SQLException se){
-            //Handle errors for JDBC
-            se.printStackTrace();
-            }catch(Exception e){
-            //Handle errors for Class.forName
-            e.printStackTrace();
-            }finally{
-            //finally block used to close resources
-            try{
-               if(stmt!=null)
-                  stmt.close();
-            }catch(SQLException se2){
-            }// nothing we can do
-            try{
-               if(conn!=null)
-                  conn.close();
-            }catch(SQLException se){
-               se.printStackTrace();
-            }//end finally try
-        }//end try
-        System.out.println("Goodbye!");
+            
+            out.println("Connecting database...<br/>");
+            try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS)) {
+                out.println("Database connected!<br/>");
+            } catch (SQLException e) {
+                out.println(e.getMessage() + "<br/>");
+                throw new IllegalStateException("Cannot connect the database!", e);
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
