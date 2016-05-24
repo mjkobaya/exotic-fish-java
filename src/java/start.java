@@ -17,13 +17,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author mkobayashi
  */
 public class start extends HttpServlet {
-
-    // JDBC database URL
-     static final String DB_URL = "jdbc:mysql://sylvester-mccoy-v3.ics.uci.edu/inf124grp16";
-     
-     //  Database credentials
-     static final String USER = "inf124grp16";
-     static final String PASS = "n?yUmap3";
      
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,37 +39,13 @@ public class start extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet start at " + request.getContextPath() + "</h1>");
+            //request.getRequestDispatcher("details2.html").include(request, response);
+            DatabaseConnection dbc = new DatabaseConnection(request, response);
+            dbc.connect();
+            String pid = request.getParameter("pid");
+            out.println("<p>Pid is: " + pid + "</p>");
             out.println("</body>");
             out.println("</html>");
-            connect(response);
-        }
-    }
-    
-    /*
-     * Database connection via JDBC
-     *
-     */
-    
-    protected void connect(HttpServletResponse response) 
-            throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
-            out.println("Loading driver...<br/>");
-
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                out.println("Driver loaded!<br/>");
-            } catch (ClassNotFoundException e) {
-                out.println("Unable to load driver :(<br/>");
-                throw new IllegalStateException("Cannot find the driver in the classpath!", e);
-            }
-            
-            out.println("Connecting database...<br/>");
-            try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS)) {
-                out.println("Database connected!<br/>");
-            } catch (SQLException e) {
-                out.println(e.getMessage() + "<br/>");
-                throw new IllegalStateException("Cannot connect the database!", e);
-            }
         }
     }
 
