@@ -26,6 +26,7 @@ public class start extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * 
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,7 +42,25 @@ public class start extends HttpServlet {
             out.println("<h1>Servlet start at " + request.getContextPath() + "</h1>");
             //request.getRequestDispatcher("details2.html").include(request, response);
             DatabaseConnection dbc = new DatabaseConnection(request, response);
-            dbc.connect();
+            Connection connection = dbc.connect();
+            Statement stmt = null;
+            try {
+                stmt = connection.createStatement();
+                String sql = "SELECT name FROM products";
+                ResultSet rs = stmt.executeQuery(sql);
+                
+                while(rs.next()){
+                    //Retrieve by column name
+                    String name = rs.getString("name");
+
+                    out.println("<p>Name is: " + name + "</p>");
+                }
+                
+                connection.close();
+            }
+            catch (SQLException e) {
+                out.println("SQLException thrown");
+            }
             String pid = request.getParameter("pid");
             out.println("<p>Pid is: " + pid + "</p>");
             out.println("</body>");
@@ -57,6 +76,7 @@ public class start extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     *
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

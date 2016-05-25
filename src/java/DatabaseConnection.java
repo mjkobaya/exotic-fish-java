@@ -38,7 +38,7 @@ public class DatabaseConnection {
         }
     }
     
-    public void connect() 
+    public Connection connect() 
             throws ServletException, IOException {
         _writer.println("Loading driver...<br/>");
 
@@ -51,8 +51,10 @@ public class DatabaseConnection {
         }
 
         _writer.println("Connecting database...<br/>");
-        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS)) {
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
             _writer.println("Database connected!<br/>");
+            return connection;
         } catch (SQLException e) {
             _writer.println(e.getMessage() + "<br/>");
             throw new IllegalStateException("Cannot connect the database!", e);
