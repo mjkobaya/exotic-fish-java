@@ -24,6 +24,8 @@ public class DatabaseConnection {
     private static final String USER = "inf124grp16";
     private static final String PASS = "n?yUmap3";
     
+    private static final Boolean DEBUG = false;
+    
     // Constructor
     public DatabaseConnection(HttpServletRequest request, HttpServletResponse response) 
         throws ServletException, IOException{
@@ -40,23 +42,36 @@ public class DatabaseConnection {
     
     public Connection connect() 
             throws ServletException, IOException {
-        _writer.println("Loading driver...<br/>");
+        if (DEBUG) {
+            _writer.println("Loading driver...<br/>");
+        }
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            _writer.println("Driver loaded!<br/>");
+            if (DEBUG) {
+                _writer.println("Driver loaded!<br/>");
+            }
         } catch (ClassNotFoundException e) {
-            _writer.println("Unable to load driver :(<br/>");
+            if (DEBUG) {
+                _writer.println("Unable to load driver :(<br/>");
+            }
             throw new IllegalStateException("Cannot find the driver in the classpath!", e);
         }
-
-        _writer.println("Connecting database...<br/>");
+        
+        if (DEBUG) {
+            _writer.println("Connecting database...<br/>");
+        }
+        
         try {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            _writer.println("Database connected!<br/>");
+            if (DEBUG) {
+                _writer.println("Database connected!<br/>");
+            }
             return connection;
         } catch (SQLException e) {
-            _writer.println(e.getMessage() + "<br/>");
+            if (DEBUG) {
+                _writer.println(e.getMessage() + "<br/>");
+            }
             throw new IllegalStateException("Cannot connect the database!", e);
         }
     }

@@ -1,0 +1,158 @@
+<button style=" border-radius: 10px;font-size:200%;position: relative;bottom:40px;background-color:#204060"onclick="document.getElementById('id01').style.display='block';calculatePrice()" class="w3-btn">Buy</button>
+            </td>
+            <!-- Trigger/Open the Modal -->
+            <td>
+               
+               <div id="id01" class="w3-modal">
+                  <div style="background-image: url("img/scale-light.png")" class="w3-modal-content w3-animate-top w3-card-8">
+                     <header class="w3-container " style="color:white;background-color:rgba(32, 64, 96, .9);background-image: url("img/scale-light.png")">
+                        <span onclick="document.getElementById('id01').style.display='none'" 
+                           class="w3-closebtn">&times;</span>
+                        <h2>Pipefish</h2>
+                        
+
+
+                     </header>
+                     <div class="w3-container" style="color:black">
+                      <table >
+                        <form id="orderForm" name="form"  method="post">
+                           
+                              <p style="color:black">Purchasing Information</p>
+                              <tr>
+                                 <td>Full name:<br>
+                                    <input type="text" id="fullname"style="width: 250px;" name="name"><br>
+                                 </td>
+                                 <td>Phone Number:<br>
+                                    <input type="text" id="phone" name="phone"><br>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Address:<br>
+                                    <input type="text" id="address" name="address">
+                                 </td>
+                                 <td>Credit Card Number: <br><input type="text" id="creditcard"  name="creditCard" value="" ></td>
+                              </tr>
+                              <tr>
+                                 <td>City:<br>
+                                    <input type="text" id="city" name="city">
+                                 </td>
+                                 <td>
+                                    Shipping Method: <br>
+                                    <select name="shipMethod" id="shipping" onchange="calculatePrice()" form="orderForm">
+                                       <option spec="Ground" value="0.00" selected>Ground (Free)</option>
+                                       <option spec="2-Day" value="9.99">2-Day ($9.99)</option>
+                                       <option spec="Overnight" value="19.99">Overnight ($19.99)</option>
+                                    </select>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>State/Province/Region:<br>
+                                    <input type="text" id="state" name="state"><br>
+                                 </td>
+                                 <td>
+                                    Quantity: <br/>
+                                    <select name="quantity" id="quantity" onchange="calculatePrice()" form="orderForm">
+                                       <option value="1" selected>1</option>
+                                       <option value="2">2</option>
+                                       <option value="3">3</option>
+                                       <option value="4">4</option>
+                                       <option value="5">5</option>
+                                       <option value="6">6</option>
+                                       <option value="7">7</option>
+                                       <option value="8">8</option>
+                                       <option value="9">9</option>
+                                    </select>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>ZIP:<br>
+                                    <input type="text" id="zip" name="zip">
+                                 </td>
+                                 <td>
+                                  <h1 style="font-size:20px; color:black"</h1>
+                                  <div type="price" id="price" value="34.95" > </div>
+                                  <div style="font-size:150%;position:relative;bottom:20px;"type="total" id="total" >Total: $34.95 </div>
+                                  
+                 
+                                 
+                                </td>
+
+                              </tr> 
+                              </form>
+
+
+                           </table>
+                      
+                     </div>
+
+                     <button style="font-size:150%;width:10%;background-color:#204060;position:relative;bottom:30px;left:450px;" onclick="validateForm('Pipefish');" class="w3-btn">Buy</button>  
+
+
+                     <footer style="background-color:rgba(32, 64, 96, .9);text-align:center;" class="w3-container ">
+                        <img class="rotate" id="logo-img" style="padding:13px; width:100px;"src="img/fish-logo.png"/></a>
+                     </footer>
+                  </div>
+               </div>
+            </td>
+         </tr>
+      </div>
+      <script>
+         var slideIndex = 1;
+         showDivs(slideIndex);
+         
+         function test(){
+          console.log("ADSJKJDSKJAKJ");
+         }
+
+         function calculatePrice(){
+          var quantity = document.getElementById("quantity").value;
+          console.log(quantity);
+          var shipping = document.getElementById("shipping").value;
+          var price = parseFloat(document.getElementById("price").getAttribute("value"));
+
+          console.log(price);
+
+          var total = parseFloat(quantity) * parseFloat(price) + parseFloat(shipping);
+          total = total.toFixed(2);
+          var node = document.getElementById('total');
+          while (node.hasChildNodes()) {
+            node.removeChild(node.firstChild);
+          }
+
+          console.log(total);
+
+          document.getElementById("total").innerHTML = "Total: $" + total;
+          document.getElementById("total").value = total;
+         }
+
+         function plusDivs(n) {
+           showDivs(slideIndex += n);
+         }
+         
+         function currentDiv(n) {
+           showDivs(slideIndex = n);
+         }
+         
+         function showDivs(n) {
+           var i;
+           var x = document.getElementsByClassName("mySlides");
+           var dots = document.getElementsByClassName("demo");
+           if (n > x.length) {slideIndex = 1}    
+           if (n < 1) {slideIndex = x.length} ;
+           for (i = 0; i < x.length; i++) {
+              x[i].style.display = "none";  
+           }
+           for (i = 0; i < dots.length; i++) {
+              dots[i].className = dots[i].className.replace(" w3-white", "");
+           }
+           x[slideIndex-1].style.display = "block";  
+           dots[slideIndex-1].className += " w3-white";
+         }
+
+
+
+
+
+      </script>
+   </body>
+</html>

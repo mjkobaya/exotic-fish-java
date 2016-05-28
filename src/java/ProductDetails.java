@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,44 +32,60 @@ public class ProductDetails extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProductDetails</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProductDetails at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            //request.getRequestDispatcher("details2.html").include(request, response);
+            /*
+             * Including first part of details page in product_details.html
+             */
+            request.getRequestDispatcher("product_details.html").include(request, response);
+            
+            // Get the pid from the request
+            String pid = request.getParameter("pid");
+            
+            // Query database for product information
             DatabaseConnection dbc = new DatabaseConnection(request, response);
             Connection connection = dbc.connect();
             Statement stmt = null;
             try {
                 stmt = connection.createStatement();
-                String sql = "SELECT name FROM products";
+                String sql = "SELECT name, price, description, slide1,"
+                        + " slide2, slide3 FROM products WHERE "
+                        + "pid = " + pid;
                 ResultSet rs = stmt.executeQuery(sql);
                 
+                int loopCheck = 0;
                 while(rs.next()){
-                    //Retrieve by column name
-                    String name = rs.getString("name");
+                    // Retrieve by column name
+                    if (loopCheck == 0) {
+                        String name = rs.getString("name");
+                        float price = rs.getFloat("price");
+                        String description = rs.getString("description");
+                        String slide1 = rs.getString("slide1");
+                        String slide2 = rs.getString("slide2");
+                        String slide3 = rs.getString("slide3");
 
-                    out.println("<p>Name is: " + name + "</p>");
+                        out.println("<img class=\"mySlides\" src=\"" + slide1 + "\"style=\"width:100%; height:400px\">");
+                        out.println("<img class=\"mySlides\" src=\"" + slide2 + "\"style=\"width:100%; height:400px\">");
+                        out.println("<img class=\"mySlides\" src=\"" + slide3 + "\"style=\"width:100%; height:400px\">");
+                    
+                        request.getRequestDispatcher("product_details2.html").include(request, response);
+                        
+                        out.println("<p style=\"position: relative;bottom:20px;font-size: 300%;color:#DDE5F9;text-shadow: 2px 2px #000000\">" + name);
+                        out.println("<br> <a style=\"position: relative;bottom:20px;font-size:30px\"> Price: $" + price + "</a></p>");
+                        out.println("<p style=\"position: relative;bottom:70px;font-size: 105%;color:#DDE5F9;text-shadow: 1px 1px #000000\">" + description + "</p>");
+                        
+                        request.getRequestDispatcher("product_details3.html").include(request, response);
+                        
+                        ++loopCheck;
+                    }
                 }
                 
                 connection.close();
             }
             catch (SQLException e) {
-                out.println("SQLException thrown");
+                out.println("<p>SQLException thrown</p>");
             }
-            String pid = request.getParameter("pid");
-            out.println("<p>Pid is: " + pid + "</p>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

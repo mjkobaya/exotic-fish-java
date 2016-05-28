@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <Context antiResourceLocking="true"/>
     <servlet>
         <servlet-name>start</servlet-name>
         <servlet-class>start</servlet-class>
@@ -8,6 +9,10 @@
         <servlet-name>ProductDetails</servlet-name>
         <servlet-class>ProductDetails</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddToCart</servlet-name>
+        <servlet-class>AddToCart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>start</servlet-name>
         <url-pattern>/start</url-pattern>
@@ -15,6 +20,10 @@
     <servlet-mapping>
         <servlet-name>ProductDetails</servlet-name>
         <url-pattern>/ProductDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/AddToCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
