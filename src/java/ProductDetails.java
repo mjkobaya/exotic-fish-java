@@ -72,6 +72,7 @@ public class ProductDetails extends HttpServlet {
                         out.println("<br> <a style=\"position: relative;bottom:20px;font-size:30px\"> Price: $" + price + "</a></p>");
                         out.println("<p style=\"position: relative;bottom:70px;font-size: 105%;color:#DDE5F9;text-shadow: 1px 1px #000000\">" + description + "</p>");
                         
+                        out.println("<button style=\" border-radius: 10px;font-size:200%;position: relative;bottom:40px;background-color:#204060\"onclick=\"addToCart(" + pid + ")\" class=\"w3-btn\">Add To Cart</button>");
                         request.getRequestDispatcher("product_details3.html").include(request, response);
                         
                         ++loopCheck;

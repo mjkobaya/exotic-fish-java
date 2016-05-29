@@ -1,4 +1,3 @@
-<button style=" border-radius: 10px;font-size:200%;position: relative;bottom:40px;background-color:#204060"onclick="document.getElementById('id01').style.display='block';calculatePrice()" class="w3-btn">Buy</button>
             </td>
             <!-- Trigger/Open the Modal -->
             <td>
@@ -149,9 +148,16 @@
            dots[slideIndex-1].className += " w3-white";
          }
 
-
-
-
+         // Do ajax get for adding item to cart
+         function addToCart(pid) {
+            $.post("AddToCart",
+            {
+                pid : pid
+            },
+            function(data, status){
+                alert("Added to cart!");
+            });
+         }
 
       </script>
    </body>

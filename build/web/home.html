@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    
+    <!-- header -->
+    
+    <head>
+        <title>Exotic Fish Emporium</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- custom CSS -->
+        <link rel="stylesheet" href="css/main.css" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700' rel='stylesheet' type='text/css'>
+    </head>
+   
+    <!-- end header -->
+    
+    <!-- body -->
+    <body>
+         <style>
+    img
+       {
+           border-radius: 50px;
+        }
+    
+    
+            
+   </style>
+        <!-- navbar -->
+        <section id="top-navbar">
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="store.html">Store</a></li>
+                <li id="logo-img-li" ><a href="home.html"><img class="rotate" id="logo-img" src="img/fish-logo.png" alt ="fish-logo"/></a></li>
+                <li class="right"><h1>Fish Forever</h1></li>
+            </ul>  
+        </section>
+        <!-- end navbar -->
+        
+        <!-- top -->
+        
+        
+            <div id="slide" >
+            <h2 id="titleP" class="font">Fish Forever</h2>
+            
+            <a href="store.html#octopus"> <img  class="slideshow" alt="angelfish3" src="img/sale1.jpg" style=" width:650px;height:400px; "></a>
+            <a href="store.html#seaurchin"> <img  class="slideshow" alt="flowerhorn4" src="img/sale2.jpg" style="width:650px;height:400px;"></a>
+            <a href="store.html#lionfish"><img  class="slideshow" alt="seaurchin4" src="img/sale3.jpg" style=" width:650px;height:400px;"></a>
+            <a href="store.html#euphylia"><img  class="slideshow" alt="seaurchin4" src="img/sale4.jpg" style=" width:650px;height:400px;"></a>
+            <a href="store.html#angelfish"><img  class="slideshow" alt="seaurchin4" src="img/sale5.jpg" style=" width:650px;height:400px;"></a>
+            <a href="store.html#pleco"><img  class="slideshow" alt="plecostomus" src="img/sale6.jpg" style=" width:650px;height:400px;"></a>
+        </div>
+            
+        
+        
+        
+        <!-- end top -->
+        
+        <!-- about us -->
+        <section  id="about">
+            <div class="h1-large-wrapper">
+                <h1 class="large">Who are we?</h1>
+            </div>
+            <h1>We sell exotic fish. Straight to your doorstep in less than 24 hours!</h1>
+            <br/>
+            <div class="h1-large-wrapper">
+                <h1 class="large">Our Team</h1>
+            </div>
+            <div id="team-img">
+                <table class="profile-table">
+                    <tr>
+                        <td class="profile-table">
+                            <img class="profile-img" src="img/triton.png" alt="Profile Image"/>
+                            <div class="profile-desc-wrapper">
+                            <h3 class="profile-desc"> Melinda Kobayashi </h3>
+                            <p class="profile-desc"> Contact Email: mkobayashi@uci.edu<br/>
+                               Founder of Fish Forever
+                            </p> 
+                            </div>
+                        </td>
+                        <td>
+                            <img class="profile-img" src="img/max.gif" alt="Profile Image"/>
+                            <div class="profile-desc-wrapper">
+                            <h3 class="profile-desc"> Jonathan Orozco </h3>
+                            <p class="profile-desc"> Contact Email: jorozco@uci.edu <br/>
+                                Co-founder of Fish Forever
+                            </p> 
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img  class="profile-img" src="img/ariel.png" alt="Profile Image"/>
+                            <div class="profile-desc-wrapper">
+                            <h3 class="profile-desc"> Howard Liu </h3>
+                            <p class="profile-desc">Contact Email: hliu@uci.edu<br/>
+                                Customer Service Representative
+                            </p> 
+                            </div>
+                        </td>
+                        <td>
+                            <img class="profile-img" src="img/sebastian.png" alt="Profile Image"/>
+                            <div class="profile-desc-wrapper">
+                            <h3 class="profile-desc"> Fred Rezine </h3>
+                            <p class="profile-desc">Contact Email: frez@uci.edu<br/>
+                                Marine Biologist
+                            </p> 
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+        <!-- end about us -->
+        <script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("slideshow");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1;}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 4000); // Change image every 2 seconds
+}
+</script>
+
+    </body>
+    <!-- end body -->
+    
+</html>
