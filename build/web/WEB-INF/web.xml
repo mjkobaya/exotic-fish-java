@@ -13,6 +13,14 @@
         <servlet-name>AddToCart</servlet-name>
         <servlet-class>AddToCart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>sessionTracking</servlet-name>
+        <servlet-class>sessionTracking</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>ProductServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>start</servlet-name>
         <url-pattern>/start</url-pattern>
@@ -24,6 +32,14 @@
     <servlet-mapping>
         <servlet-name>AddToCart</servlet-name>
         <url-pattern>/AddToCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sessionTracking</servlet-name>
+        <url-pattern>/sessionTracking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/ProductServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

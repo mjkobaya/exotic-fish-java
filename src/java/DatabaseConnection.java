@@ -40,6 +40,23 @@ public class DatabaseConnection {
         }
     }
     
+    // jonathans contructor
+    public DatabaseConnection() {
+        // do nothing;
+    }
+    
+    public Connection jonathansConnect() {
+        Connection connection = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            
+        } catch(Exception e) {
+            
+        }
+        return connection;
+    }
+    
     public Connection connect() 
             throws ServletException, IOException {
         if (DEBUG) {

@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,41 +32,86 @@ public class start extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        //
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet start</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet start at " + request.getContextPath() + "</h1>");
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet start</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1> WORKING </h1>");
             //request.getRequestDispatcher("details2.html").include(request, response);
-            DatabaseConnection dbc = new DatabaseConnection(request, response);
-            Connection connection = dbc.connect();
-            Statement stmt = null;
-            try {
-                stmt = connection.createStatement();
-                String sql = "SELECT name FROM products";
-                ResultSet rs = stmt.executeQuery(sql);
-                
-                while(rs.next()){
-                    //Retrieve by column name
-                    String name = rs.getString("name");
-
-                    out.println("<p>Name is: " + name + "</p>");
-                }
-                
-                connection.close();
+            //DatabaseConnection dbc = new DatabaseConnection(request, response);
+            //Connection connection = dbc.connect();
+            //Statement stmt = null;
+            
+//            Products.test(request, response);
+//            String pid = request.getParameter("pid");
+//            out.println("<p>Pid is: " + pid + "</p>");
+//            out.println("</body>");
+//            out.println("</html>");
+        try {
+            lastViewed lastV;
+            ProductServlet prod;
+            HttpSession session = request.getSession();
+            if (session.getAttribute("lastViewed") == null) {
+                session.setAttribute("lastViewed", new lastViewed());
             }
-            catch (SQLException e) {
-                out.println("SQLException thrown");
-            }
-            String pid = request.getParameter("pid");
-            out.println("<p>Pid is: " + pid + "</p>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+            lastV = (lastViewed) session.getAttribute("lastViewed");
+            
+            Products p1 = new Products();
+            Products p2 = new Products();
+            Products p3 = new Products();
+            Products p4 = new Products();
+            Products p5 = new Products();
+            
+            
+            p1.name="discus";
+            p1.price="120";
+            p1.fish_type="freshwater";
+            p1.img="img/discus1";
+            
+            p2.name="eel";
+            p2.price="120";
+            p2.fish_type="freshwater";
+            p2.img="img/eel1";
+            
+            p3.name="flowerhorn";
+            p3.price="22";
+            p3.fish_type="freshwater";
+            p3.img="img/flowerhorn1";
+            
+            p4.name="plecostomus";
+            p4.price="55";
+            p4.fish_type="freshwater";
+            p4.img="img/plecostomus1";
+            
+            p5.name="frags";
+            p5.price="88";
+            p5.fish_type="coral";
+            p5.img="img/frags1";
+            
+  
+            
+            lastV.add(p1);
+            lastV.add(p2);
+            lastV.add(p3);
+            lastV.add(p4);
+            lastV.add(p5);
+            
+            
+            Products.printHeader(response.getWriter());
+            
+            Products.printLastFive(response.getWriter(), lastV);
+            
+            Products.createTable(response.getWriter());
+            
+            
+            
+            //template.footer(writer);
+         } catch (Exception e) {}
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
