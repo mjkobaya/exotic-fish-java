@@ -151,6 +151,9 @@
                 }
             }
 
+            // Added these two lines
+//            stmt.close();
+//            rs.close();
             connection.close();
         }
         catch (SQLException e) {
