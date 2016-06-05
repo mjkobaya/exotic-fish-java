@@ -6,7 +6,8 @@ function validateForm(pid) {
   
    
     
-    var quantity = document.getElementById("quantity").value;
+    var quantity = parseInt(document.getElementById("quantity").value);
+    
     // DEBUG
     console.log("quantity is " + quantity);
     if (quantity > 10) {
@@ -32,7 +33,8 @@ function validateForm(pid) {
         //no letters
     }
     
-    var phoneNum = document.getElementById("phone").value;
+    var phoneNum = parseInt(document.getElementById("phone").value);
+    
     if (phoneNum.length > 10) {
         alert("Phone number should be 10 digits.");
         return false;
@@ -56,8 +58,8 @@ function validateForm(pid) {
     }
 
     creditCard = creditCard.substring(12);
-    var address = document.getElementById("address").value;
-    var city = document.getElementById("city").value;
+    var address = parseInt(document.getElementById("address").value);
+    var city = parseInt(document.getElementById("city").value);
 
     var cityMatches = city.match(/\d+/g);
     if (cityMatches != null) {
@@ -95,12 +97,12 @@ if (address.length == 0) {
         alert("First name shouldn't have numeric digits.");
         return false;
     }
-    var zip = document.getElementById("zip").value;
+    var zip = parseInt(document.getElementById("zip").value);
     if(isNaN(zip) || zip.length!=5){
         alert("Invalid Zip Code");
         return false;
     }
-    var shipping = document.getElementById("shipping").value;
+    var shipping = parseFloat(document.getElementById("shipping").value);
     if(shipping==0.00){
         shipping = "Ground"
     }
