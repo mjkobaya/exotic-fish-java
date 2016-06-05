@@ -86,11 +86,12 @@
         <p class="confirm-tagline">Thank you for your order! Here are the order details:</p>
         <ul>
     <%
-        String orderId = request.getParameter("oid");
+        Integer orderId = (Integer)session.getAttribute("oid");
+        
         
         String[] fish = {
             "Pipefish", "Discus", "Frags", "Octopus", "Seahorse", "Plecostomus",
-            "TorchCoral", "SeaUrchin", "Pufferfish", "Flowerhorn", 
+            "TorchCoral", "SeaUrchin", "Eel", "Flowerhorn", 
             "SoftCoral", "Sponge"
         };
         
@@ -113,8 +114,8 @@
                     String city = rs.getString("Cityinfo");
                     String state = rs.getString("State");
                     Integer zip = rs.getInt("Zip");
-                    Integer phone = rs.getInt("Phone");
-                    Integer creditcard = rs.getInt("Creditcard");
+                    String phone = rs.getString("Phone");
+                    String creditcard = rs.getString("Creditcard");
                     Float shipping = rs.getFloat("Shipping");
                     
                     Map<String, Integer> quantity = new LinkedHashMap<String, Integer>();
@@ -131,8 +132,8 @@
                     out.println("<li>City: " + city + "</li>");
                     out.println("<li>State: " + state + "</li>");
                     out.println("<li>Zip: " + Integer.toString(zip) + "</li>");
-                    out.println("<li>Phone Number: " + Integer.toString(phone) + "</li>");
-                    out.println("<li>Credit Card: " + Integer.toString(creditcard) + "</li>");
+                    out.println("<li>Phone Number: " + phone + "</li>");
+                    out.println("<li>Credit Card: " + creditcard + "</li>");
                     DecimalFormat decimalFormat = new DecimalFormat("'$'0.00");
                     String shipCost= decimalFormat.format(shipping);
                     out.println("<li>Shipping Cost: " + shipCost + "</li>");
@@ -151,9 +152,6 @@
                 }
             }
 
-            // Added these two lines
-//            stmt.close();
-//            rs.close();
             connection.close();
         }
         catch (SQLException e) {
