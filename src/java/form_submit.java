@@ -40,12 +40,12 @@ public class form_submit extends HttpServlet {
 
             
             if (cart == null) {
-                out.println("<p style=\"bottom:20px;font-size: 200%;color:#DDE5F9;text-shadow: 2px 2px #000000\">The cart is empty.</p>\n");
+                out.println("<p style=\"bottom:20px;font-size: 200%;color:#DDE5F9;text-shadow: 2px 2px #000000\">The cart is empty. Cannot submit order details for an empty cart.</p>\n");
                 cart = new LinkedHashMap<>();
             }
             
             else {
-                out.println("<p> IT REACHED THE ELSE</p>");
+                //out.println("<p> IT REACHED THE ELSE</p>");
                 DatabaseConnection dbc = new DatabaseConnection(request, response);
                 Connection conn = dbc.connect();
       
@@ -79,7 +79,7 @@ public class form_submit extends HttpServlet {
                         out.println("<p>SQL Exception</p>");
                     }
                 }
-                out.println("<p> HERE </p>");
+                //out.println("<p> HERE </p>");
                 
                 String FullName;
                 String Addr;
@@ -95,19 +95,19 @@ public class form_submit extends HttpServlet {
                 FullName = (String)request.getParameter("name");
                 Addr = (String)request.getParameter("address");
                 Cityinfo = (String)request.getParameter("city");
-                out.println("<p> STRINGS ONLY</p>");
+                //out.println("<p> STRINGS ONLY</p>");
                 State = (String)request.getParameter("state");
-                out.println("<p> ATTRIBUTE: " + FullName+" " + Addr+ " " + Cityinfo+" " + State + "</p>");
+                //out.println("<p> ATTRIBUTE: " + FullName+" " + Addr+ " " + Cityinfo+" " + State + "</p>");
                 Zip = request.getParameter("zip");
-                out.println("<p> ZIP: "+ Zip +"</p>");
+                //out.println("<p> ZIP: "+ Zip +"</p>");
                 Phone = request.getParameter("phone");
-                out.println("<p> PHONE: " + Phone + "</p>");
+                //out.println("<p> PHONE: " + Phone + "</p>");
                 Creditcard = request.getParameter("creditCard");
-                out.println("<p> CREDIT CARD: " + Creditcard + "</p>");
+               // out.println("<p> CREDIT CARD: " + Creditcard + "</p>");
                 Shipping = (String)request.getParameter("shipMethod");
-                out.println("<p> SHIPPING: " + Shipping + "</p>");
+                //out.println("<p> SHIPPING: " + Shipping + "</p>");
                 
-                out.println("<p> AFTER getting the params: ");
+               // out.println("<p> AFTER getting the params: ");
                 
                 
                     //put map of fish and their quantities into strings
@@ -122,17 +122,17 @@ public class form_submit extends HttpServlet {
                         quantities = quantities + amount + ",";
                     }
 
-                    out.println("<p>AFTER FOR LOOP: " + items + " " + quantities +"</p>");
+                    //out.println("<p>AFTER FOR LOOP: " + items + " " + quantities +"</p>");
                     
                     items = items.substring(0,items.length()-1);
                     
                    
-                    out.println("<p> QUANTITY LENGTH</p>");
+                    //out.println("<p> QUANTITY LENGTH</p>");
                     quantities = quantities.substring(0,quantities.length()-1);
                     
                     
 
-                    out.println("<p> BEFORE SQL STRING</p>");
+                    //out.println("<p> BEFORE SQL STRING</p>");
 
                     String sql;
                     sql = "INSERT INTO purchase_info ( FullName,Addr,Cityinfo,"
@@ -157,7 +157,7 @@ public class form_submit extends HttpServlet {
                             quantities + ")";
                         
                     
-                    out.println("<p> AFTER SQL: "+sql+"</p>");
+                   // out.println("<p> AFTER SQL: "+sql+"</p>");
                     
                 try {    
                     
@@ -170,17 +170,17 @@ public class form_submit extends HttpServlet {
                     if (inserted == 0) {
                         out.println("<p>Order was not submitted successfully. Please try again another time.</p>\n");
                     } else {
-                        out.println("<p> INSERTED </p>");
+                        //out.println("<p> INSERTED </p>");
                     
                         try (ResultSet rs = ps.getGeneratedKeys()) {
-                            out.println("<p> INSIDE RS</p>");
+                            //out.println("<p> INSIDE RS</p>");
                             if (rs.next()) {
-                                out.println("<p> INSIDE THE IF</p>");
+                                //out.println("<p> INSIDE THE IF</p>");
                                 int oid = rs.getInt(1);
-                                out.println("<p> AFTER OID" + oid + "</p>");
+                                //out.println("<p> AFTER OID" + oid + "</p>");
                                 session.setAttribute("oid",oid);
-                                out.println("<p>" + session.getAttribute("oid") + "</p>");
-                                out.println("<p> AFTER SETTING ATTRIBUTE</p>");
+                               // out.println("<p>" + session.getAttribute("oid") + "</p>");
+                               // out.println("<p> AFTER SETTING ATTRIBUTE</p>");
                                 request.getRequestDispatcher("orderdetails.jsp").forward(request, response);
                             }
                         } catch (SQLException e) {
