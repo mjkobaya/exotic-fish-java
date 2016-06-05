@@ -1,0 +1,35 @@
+            <!-- Trigger/Open the Modal -->
+              <div class="w3-container" style="color:black">
+                <table>
+                  <form action = "./form_submit" id="orderForm" name="form"  method="POST">
+
+                    <p style="bottom:20px;font-size: 100%;color:#DDE5F9;text-shadow: 2px 2px #000000">Purchasing Information</p>
+                    <tr>
+                      <td style="bottom:20px;font-size: 100%;color:#DDE5F9;text-shadow: 2px 2px #000000">Full name:<br>
+                        <input type="text" id="fullname"style="width: 250px;" name="name"><br>
+                      </td>
+                      <td style="bottom:20px;font-size: 100%;color:#DDE5F9;text-shadow: 2px 2px #000000">Phone Number:<br>
+                        <input type="text" id="phone" name="phone" value=""><br>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="bottom:20px;font-size: 100%;color:#DDE5F9;text-shadow: 2px 2px #000000">Address:<br>
+                        <input type="text" id="address" name="address">
+                      </td>
+                      <td style="bottom:20px;font-size: 100%;color:#DDE5F9;text-shadow: 2px 2px #000000">Credit Card Number: <br>
+                        <input type="text" id="creditcard"  name="creditCard" value="" >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="bottom:20px;font-size: 100%;color:#DDE5F9;text-shadow: 2px 2px #000000">City:<br>
+                        <input type="text" id="city" name="city">
+                      </td>
+                      <td style="bottom:20px;font-size: 100%;color:#DDE5F9;text-shadow: 2px 2px #000000">Shipping Method: <br>
+                        <select name="shipMethod" id="shipping" onchange="calculatePrice()" form="orderForm">
+                          <option spec="Ground" value="0.00" selected>Ground (Free)</option>
+                          <option spec="2-Day" value="9.99">2-Day ($9.99)</option>
+                          <option spec="Overnight" value="19.99">Overnight ($19.99)</option>
+                        </select>
+                      </td>
+                    </tr>
+                    

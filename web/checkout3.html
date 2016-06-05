@@ -1,0 +1,78 @@
+</form>
+                    
+                </table>
+              </div>
+              
+                     <footer style="background-color:rgba(32, 64, 96, .9);text-align:center;" class="w3-container ">
+                        <img class="rotate" id="logo-img" style="padding:13px; width:100px;"src="img/fish-logo.png"/></a>
+                     </footer>
+                  </div>
+
+            </td>
+         </tr>
+      </div>
+      <script>
+         var slideIndex = 1;
+         showDivs(slideIndex);
+
+         function calculatePrice(){
+          var quantity = document.getElementById("quantity").value;
+          console.log(typeof quantity);
+          console.log(quantity);
+          var shipping = document.getElementById("shipping").value;
+          console.log(typeof shipping);
+          console.log(shipping);
+          var price = parseFloat(document.getElementById("price").getAttribute("value"));
+          console.log(typeof price);
+
+          console.log(price);
+
+          var total = parseFloat(price) + parseFloat(shipping);
+          console.log(typeof total);
+          console.log(total);
+          total = total.toFixed(2);
+          console.log(total);
+          var node = document.getElementById('total');
+          while (node.hasChildNodes()) {
+            node.removeChild(node.firstChild);
+          }
+
+          
+
+          document.getElementById("total").innerHTML = "Total: $" + total;
+          document.getElementById("total").value = total;
+         }
+         
+        function addQuantity(n) {
+          var quantity = document.getElementById("quantity").value;
+          quantity += n;
+          document.getElementById("quantity").innerHTML = "Total Quantity: "+quantity;
+          document.getElementById("quantity").value = quantity;
+        }
+
+         function plusDivs(n) {
+           showDivs(slideIndex += n);
+         }
+
+         function currentDiv(n) {
+           showDivs(slideIndex = n);
+         }
+
+         function showDivs(n) {
+           var i;
+           var x = document.getElementsByClassName("mySlides");
+           var dots = document.getElementsByClassName("demo");
+           if (n > x.length) {slideIndex = 1}
+           if (n < 1) {slideIndex = x.length} ;
+           for (i = 0; i < x.length; i++) {
+              x[i].style.display = "none";
+           }
+           for (i = 0; i < dots.length; i++) {
+              dots[i].className = dots[i].className.replace(" w3-white", "");
+           }
+           x[slideIndex-1].style.display = "block";
+           dots[slideIndex-1].className += " w3-white";
+         }
+      </script>
+   </body>
+</html>
